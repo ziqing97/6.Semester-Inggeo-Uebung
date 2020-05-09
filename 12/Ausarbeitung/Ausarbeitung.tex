@@ -1,0 +1,209 @@
+\chapter{Planung}
+\section{Einleitung}
+Die Topografie des Segelflugplatzes Hülben/Alb soll mittels UAV-gestützter Photogrammetrie erfasst werden. Der Flugplatz Hülben verfügt über zwei Start-/Landebahnen,die in etwa in Ost-West-Richtung verlaufen. Man hat zwei zu erfassende Gebiet. Das gelb eingezeichnete Umringpolygon hat eine Ausdehnung von ca.700x170$\ut{m^2}$. Der zentrale, in orange umrandete Bereich hat eine Größe
+von $200 \times 130\ut{m^2}$ und wird ein zweites Mal in einer geringeren Flugh{\"{o}}he {\"{u}}berflogen.
+\\\\
+Die Geometrie der Luftbildkamera spielt eine entscheidende Rolle auf den Befliegungsaufwand. So um ein Gefühl dafür zu bekommen,sind in der Planung vier grundsätzlich verschiedenen Kamerasysteme durchzuführen und zu diskutieren.
+%Neue Seite
+\newpage
+\section{Voraussetzungen}
+\begin{itemize}
+	\item Fluggeschwindigkeit: $v=5\ut{m/s}$
+	\item Mindestüberdeckung in Flugrichtung: $p=80\%$
+	\item Mindestüberdeckung quer zur Flugrichtung: $q=60\%$
+	\item Der allgemeine Bereich: $L=700\ut{m}$, $Q=170\ut{m}$
+	\item Der zentrale Bereich: $L_c=200\ut{m}$, $Q_c=130\ut{m}$
+	\item GSD: $2\ut{cm}$ mit normaler Kamera, $10\ut{cm}$ mit Multi-Spektraler Kamera
+	\item Parameter der verschiedene Kamera: 
+	\begin{table}[ht]
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			Kamera                                                                                          & Pixelgröße(\textmu m): & Pixelanzahl $s$         & Brennweite von Lens($\ut{mm}$): $c$ \\ \hline
+			\begin{tabular}[c]{@{}l@{}}Fest installierter Kamera\\ der dji Phantom4 RTK Drohne\end{tabular} & 2,4                      & $5472 \times 3648$  & 8,8                            \\ \hline
+			Sony Alpha 6000 Kamera                                                                          & 3,9                      & $6000 \times 4000$  & 16                             \\ \hline
+			Phase One iXM 100 Kamera                                                                        & 3,76                     & $11664 \times 8750$ & 35                             \\ \hline
+			Sequioa multi-spektral Sensor                                                                   & 3,98                     & $4608 \times 3456$  & 3,98                           \\ \hline
+		\end{tabular}
+	\end{table}
+\end{itemize}
+\section{Rechenformeln}
+\begin{itemize}
+	\item Skalar: $m_b = \frac{h_g}{c} = \frac{GSD}{\Delta pixel}$
+	\item Bildgröße auf Boden: $S = s \cdot m_b$ 
+	\item Basis in Flugrichtung: $B = S_l(1-p)$
+	\item Basis quer zur Flugrichtung: $A = S_q(1-q)$
+	\item Anzahl der Bilder jedes Streifens: $n_b = (\frac{L}{B})^* + 1$
+	\item Anzahl der Streifen: $n_s = (\frac{Q}{A})^* + 1$
+	\item Bildsequenz: $\Delta t = \frac{B}{v}$ 
+	\item Die gesamte Zeit: $t = (n_b - 1) \cdot n_s \cdot \Delta t$
+\end{itemize}
+$*$ bedeutet Aufrunden.
+
+\section{Fest installierter Kamera in dji Drohne}
+\subsection{Gesamter Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+	S_l = s_l \cdot GSD = 109,4400 \ut{m} \\
+	S_q = s_q \cdot GSD = 72,9600 \ut{m} \\
+	m_b = \frac{GSD}{\Delta pixel} = 8333,3 \\
+	h = c \cdot m_b \approx 73 \ut{m}  \\
+	B = S_l \cdot (1-p) = 14,5920 \ut{m} \\
+	A = S_q \cdot (1-q) = 43,7760 \ut{m} \\
+	n_b = (\frac{L}{B})^* + 1 = 49 \\
+	n_s = (\frac{Q}{A})^* + 1 = 4 \\	
+	t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 560,3328 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+	\sigma_X = m_b \cdot \sigma_x = 0,0100 \ut{m} \\
+	\sigma_Y = m_b \cdot \sigma_y = 0,0100 \ut{m} \\
+	\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0500 \ut{m}
+\end{gather*}
+\subsection{Zentraler Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+	h_{zentral} = h \cdot 0,85 \approx 62 \ut{m} \\
+	{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 7083,3 \\
+	GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0170 \ut{m} \\
+	{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 93,0240 \ut{m} \\
+	{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 62,0160 \ut{m} \\
+	B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 12,4032 \ut{m} \\
+	A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 37,2096 \ut{m} \\
+	{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 18 \\
+	{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 4 \\	
+	t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 168,6835 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+	\sigma_X = m_b \cdot \sigma_x = 0,0085 \ut{m} \\
+	\sigma_Y = m_b \cdot \sigma_y = 0,0085\ut{m} \\
+	\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0425 \ut{m}
+\end{gather*}
+\newpage
+
+\section{Sony Alpha 6000}
+\subsection{Gesamter Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+	S_l = s_l \cdot GSD = 120,0000 \ut{m} \\
+	S_q = s_q \cdot GSD = 80,0000 \ut{m} \\
+	m_b = \frac{GSD}{\Delta pixel} = 5128,2 \\
+	h = c \cdot m_b \approx 82 \ut{m}  \\
+	B = S_l \cdot (1-p) = 16,0000 \ut{m} \\
+	A = S_q \cdot (1-q) = 48,0000 \ut{m} \\
+	n_b = (\frac{L}{B})^* + 1 = 45 \\
+	n_s = (\frac{Q}{A})^* + 1 = 4 \\	
+	t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 563,2000 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+	\sigma_X = m_b \cdot \sigma_x = 0,0100 \ut{m} \\
+	\sigma_Y = m_b \cdot \sigma_y = 0,0100 \ut{m} \\
+	\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0513 \ut{m}
+\end{gather*}
+\subsection{Zentraler Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+	h_{zentral} = h \cdot 0,85 \approx 70 \ut{m} \\
+	{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 4359,0 \\
+	GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0170 \ut{m} \\
+	{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 102,0000 \ut{m} \\
+	{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 68,0000 \ut{m} \\
+	B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 13,6000 \ut{m} \\
+	A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 40,8 \ut{m} \\
+	{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 16 \\
+	{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 4 \\	
+	t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 163,2000 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+\sigma_X = m_b \cdot \sigma_x = 0,0085 \ut{m} \\
+\sigma_Y = m_b \cdot \sigma_y = 0,0085\ut{m} \\
+\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0436 \ut{m}
+\end{gather*}
+\newpage
+
+\section{Phase One iXM 100 Kamera}
+\subsection{Gesamter Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+S_l = s_l \cdot GSD = 233,2800 \ut{m} \\
+S_q = s_q \cdot GSD = 175,0000 \ut{m} \\
+m_b = \frac{GSD}{\Delta pixel} = 5319,1 \\
+h = c \cdot m_b \approx 186 \ut{m}  \\
+B = S_l \cdot (1-p) = 35,0000 \ut{m} \\
+A = S_q \cdot (1-q) = 93,3120 \ut{m} \\
+n_b = (\frac{L}{B})^* + 1 = 22 \\
+n_s = (\frac{Q}{A})^* + 1 = 2 \\	
+t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 294,0000 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+\sigma_X = m_b \cdot \sigma_x = 0,0100 \ut{m} \\
+\sigma_Y = m_b \cdot \sigma_y = 0,0100 \ut{m} \\
+\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0532 \ut{m}
+\end{gather*}
+\subsection{Zentraler Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+h_{zentral} = h \cdot 0,85 \approx 158 \ut{m} \\
+{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 4521,3 \\
+GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0170 \ut{m} \\
+{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 198,2880 \ut{m} \\
+{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 148,7500 \ut{m} \\
+B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 29,7500 \ut{m} \\
+A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 79,3152 \ut{m} \\
+{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 8 \\
+{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 2 \\	
+t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 83,3000 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+\sigma_X = m_b \cdot \sigma_x = 0,0085 \ut{m} \\
+\sigma_Y = m_b \cdot \sigma_y = 0,0085 \ut{m} \\
+\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0452 \ut{m}
+\end{gather*}
+\newpage
+
+\section{Sequioa multi-spektral Sensor}
+Mit diesem Sensor ist $GSD = 10 \ut{cm}$
+\subsection{Gesamter Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+S_l = s_l \cdot GSD = 460,80 \ut{m} \\
+S_q = s_q \cdot GSD = 345,60 \ut{m} \\
+m_b = \frac{GSD}{\Delta pixel} = 9234,5 \\
+h = c \cdot m_b \approx 37 \ut{m}  \\
+B = S_l \cdot (1-p) = 69,1200 \ut{m} \\
+A = S_q \cdot (1-q) = 184,3200 \ut{m} \\
+n_b = (\frac{L}{B})^* + 1 = 12 \\
+n_s = (\frac{Q}{A})^* + 1 = 1 \\	
+t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 152,0640 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+\sigma_X = m_b \cdot \sigma_x = 0,0500 \ut{m} \\
+\sigma_Y = m_b \cdot \sigma_y = 0,0500 \ut{m} \\
+\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0266 \ut{m}
+\end{gather*}
+\subsection{Zentraler Bereich}
+\subsubsection{Planung}
+\begin{gather*}
+h_{zentral} = h \cdot 0,85 \approx 31 \ut{m} \\
+{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 7849,3 \\
+GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0850 \ut{m} \\
+{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 391.6800 \ut{m} \\
+{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 293.7600 \ut{m} \\
+B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 58.7520 \ut{m} \\
+A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 156.6720 \ut{m} \\
+{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 5 \\
+{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 1 \\	
+t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 83,3000 \ut{s} \\
+\end{gather*}
+\subsubsection{Genauigkeit}
+\begin{gather*}
+\sigma_X = m_b \cdot \sigma_x = 0,0425 \ut{m} \\
+\sigma_Y = m_b \cdot \sigma_y = 0,0425 \ut{m} \\
+\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0226 \ut{m}
+\end{gather*}
+\newpage
