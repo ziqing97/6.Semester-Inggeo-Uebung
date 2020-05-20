@@ -8,24 +8,77 @@ close all
 load data.mat 
 
 %% Aufgabe a
-xi_1 = data (1:20,4) - data(1:20,3); % Höhenanomalie 1 - 20
+zeta_1 = data(1:20,4) - data(1:20,3); % Höhenanomalie 1 - 20
 sigma_HN = 0.001; % Standardabweichung Normalhöhen
 sigma_e = 0.005;  % Standardabweichung Ellipslid Höhe
-sigma_xi = sqrt(sigma_HN^2 + sigma_e^2);  % Fehlerfortpflanzung
-%
-figure
-plot(xi_1)
+sigma_zeta = sqrt(sigma_HN^2 + sigma_e^2);  % Fehlerfortpflanzung
+
+xq = min(data(1:20,2)):50:max(data(1:20,2));
+yq = min(data(1:20,1)):50:max(data(1:20,1));
+[xq,yq] = meshgrid(xq,yq);
+vq = griddata(data(1:20,2),data(1:20,1),zeta_1,xq,yq);
+figure,hold on 
+scatter3(data(1:20,2),data(1:20,1),zeta_1)
+mesh(xq,yq,vq)
+xlabel("x")
+ylabel("y")
+zlabel("Höhenanomalie")
+
 
 %% Aufgabe b
 A_1 = [ones(20,1), data(1:20,1), data(1:20,2), data(1:20,1).* data(1:20,2), data(1:20,1).^2, data(1:20,2).^2];  % Matrix bauen
-a_list = (A_1' * A_1) \ A_1' * xi_1;  % Ausgleichen
+a_bar = (A_1' * A_1) \ A_1' * zeta_1;  % Ausgleichen
+
+
 
 %% Aufgabe c
+r = 20 - 6;
+zeta_1_bar = A_1 * a_bar;
+epsilon_bar = zeta_1 - zeta_1_bar;
+sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
+Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
 
+
+sigma_a = sqrt(diag(Sigma_a));
+T = abs(a_bar - 0) ./ sigma_a;
+Q = 3.1824;   % Quantil
+idx = find(T < Q);
+
+%%
+i = 1;
+id = zeros(6,1) * NaN;
+while ~isempty(idx)
+    id(i) = find(T == min(T));
+    A_1(:,id(i)) = [];
+    a_bar = (A_1' * A_1) \ A_1' * zeta_1;
+    zeta_1_bar = A_1 * a_bar;
+    epsilon_bar = zeta_1 - zeta_1_bar;
+    sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
+    Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
+    sigma_a = sqrt(diag(Sigma_a));
+    T = abs(a_bar - 0) ./ sigma_a;
+    idx = find(T < Q);
+    i = i + 1;
+end
 %% Aufgabe d
 A_2 = [ones(10,1), data(21:30,1), data(21:30,2), data(21:30,1).* data(21:30,2), data(21:30,1).^2, data(21:30,2).^2]; 
-xi_2 = A_2 * a_list;    % Höhenanomalie 21 - 30
-NH_under =  data(21:30,4) - xi_2; % Normalhöhen 21 - 30
+for i=1:6
+    if isnan(id(i)) 
+        break
+    else
+        A_2(:,id(i)) = [];
+    end
+end
+zeta_2 = A_2 * a_bar;    % Höhenanomalie 21 - 30
+NH_under =  data(21:30,4) - zeta_2; % Normalhöhen 21 - 30
 data(21:30,3) = NH_under;
 
 %% Aufgabe e
+F = [ones(10,1),A_2];
+[~,l] = size(F);
+Sigma_big = zeros(l,l);
+Sigma_big(1,1) = 0.005;
+Sigma_big(2:l,2:l) = Sigma_a;
+Sigma_nh = F * Sigma_big * F';
+sigma_nh = sqrt(diag(Sigma_nh));
+
