@@ -1,2 +1,4 @@
 # IngGeo-6-Semester-Uebung
-fyi
+
+Ingenieurgeodäsie II Uebung 
+MatLab Code und Ausarbeitung
