@@ -1,209 +1,99 @@
-\chapter{Planung}
+\newpage
+\chapter{}
 \section{Einleitung}
-Die Topografie des Segelflugplatzes Hülben/Alb soll mittels UAV-gestützter Photogrammetrie erfasst werden. Der Flugplatz Hülben verfügt über zwei Start-/Landebahnen,die in etwa in Ost-West-Richtung verlaufen. Man hat zwei zu erfassende Gebiet. Das gelb eingezeichnete Umringpolygon hat eine Ausdehnung von ca.700x170$\ut{m^2}$. Der zentrale, in orange umrandete Bereich hat eine Größe
-von $200 \times 130\ut{m^2}$ und wird ein zweites Mal in einer geringeren Flugh{\"{o}}he {\"{u}}berflogen.
-\\\\
-Die Geometrie der Luftbildkamera spielt eine entscheidende Rolle auf den Befliegungsaufwand. So um ein Gefühl dafür zu bekommen,sind in der Planung vier grundsätzlich verschiedenen Kamerasysteme durchzuführen und zu diskutieren.
-%Neue Seite
+Das amtliche Höhensystem in Deutschland basiert auf Normalhöhen $H_N$. Bezugsfläche dieses Höhensystems ist das Quasigeoid. In dieser Übung sind 30 Festpunkten mit Ellipsoidische Höhen gegeben, 20 davon haben bekannte Normalhöhen. Die übrige Normalhöhen sind angefragt. 
 \newpage
-\section{Voraussetzungen}
+
+\section{Aufgabe}
+\subsection{a}
+Höhenanomalie
+\begin{equation*}
+	\zeta = h - H_N
+\end{equation*}
+wobei
 \begin{itemize}
-	\item Fluggeschwindigkeit: $v=5\ut{m/s}$
-	\item Mindestüberdeckung in Flugrichtung: $p=80\%$
-	\item Mindestüberdeckung quer zur Flugrichtung: $q=60\%$
-	\item Der allgemeine Bereich: $L=700\ut{m}$, $Q=170\ut{m}$
-	\item Der zentrale Bereich: $L_c=200\ut{m}$, $Q_c=130\ut{m}$
-	\item GSD: $2\ut{cm}$ mit normaler Kamera, $10\ut{cm}$ mit Multi-Spektraler Kamera
-	\item Parameter der verschiedene Kamera: 
-	\begin{table}[ht]
-		\begin{tabular}{|l|l|l|l|}
-			\hline
-			Kamera                                                                                          & Pixelgröße(\textmu m): & Pixelanzahl $s$         & Brennweite von Lens($\ut{mm}$): $c$ \\ \hline
-			\begin{tabular}[c]{@{}l@{}}Fest installierter Kamera\\ der dji Phantom4 RTK Drohne\end{tabular} & 2,4                      & $5472 \times 3648$  & 8,8                            \\ \hline
-			Sony Alpha 6000 Kamera                                                                          & 3,9                      & $6000 \times 4000$  & 16                             \\ \hline
-			Phase One iXM 100 Kamera                                                                        & 3,76                     & $11664 \times 8750$ & 35                             \\ \hline
-			Sequioa multi-spektral Sensor                                                                   & 3,98                     & $4608 \times 3456$  & 3,98                           \\ \hline
-		\end{tabular}
-	\end{table}
+	\item $h$: ellpsoidische Höhe
+	\item $H_N$: Normalhöhe
 \end{itemize}
-\section{Rechenformeln}
-\begin{itemize}
-	\item Skalar: $m_b = \frac{h_g}{c} = \frac{GSD}{\Delta pixel}$
-	\item Bildgröße auf Boden: $S = s \cdot m_b$ 
-	\item Basis in Flugrichtung: $B = S_l(1-p)$
-	\item Basis quer zur Flugrichtung: $A = S_q(1-q)$
-	\item Anzahl der Bilder jedes Streifens: $n_b = (\frac{L}{B})^* + 1$
-	\item Anzahl der Streifen: $n_s = (\frac{Q}{A})^* + 1$
-	\item Bildsequenz: $\Delta t = \frac{B}{v}$ 
-	\item Die gesamte Zeit: $t = (n_b - 1) \cdot n_s \cdot \Delta t$
-\end{itemize}
-$*$ bedeutet Aufrunden.
+Höhenanomalie von Punkten 1 bis 20: 
+\begin{table}[ht] \centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Pkt.Nr & Höhenanomalie [\ut{m}] \\ \hline
+		1     & 48,3548       \\ \hline
+		2     & 48,3928       \\ \hline
+		3     & 48,4118       \\ \hline
+		4     & 48,4159       \\ \hline
+		5     & 48,4290       \\ \hline
+		6     & 48,3750       \\ \hline
+		7     & 48,4098       \\ \hline
+		8     & 48,4360       \\ \hline
+		9     & 48,4360       \\ \hline
+		10    & 48,4487       \\ \hline
+	\end{tabular}
+	\begin{tabular}{|l|l|}
+		\hline
+		Pkt.Nr & Höhenanomalie [\ut{m}] \\ \hline
+		11    & 48,3946       \\ \hline
+		12    & 48,4203       \\ \hline
+		13    & 48,4420      \\ \hline
+		14    & 48,4556       \\ \hline
+		15    & 48,4695      \\ \hline
+		16    & 48,4148       \\ \hline
+		17    & 48,4483       \\ \hline
+		18    & 48,4659       \\ \hline
+		19    & 48,4762       \\ \hline
+		20    & 48,4890       \\ \hline
+	\end{tabular}
+\end{table}
+\\
+Standardabweichung
+\begin{equation*}
+	\sigma_{\zeta} = \sqrt{(\sigma_h^2 + \sigma_{H_N}^2)} = 0,0051 \ut{m}
+\end{equation*}
+Graphische Darstellung:
+\begin{figure*}[ht]\centering
+	\begin{subfigure}{.8\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{Images/Hoeheanomalie}  
+		\caption{Höhenanomalie}
+		\label{fig:sub-first}
+	\end{subfigure}
+\end{figure*}
 
-\section{Fest installierter Kamera in dji Drohne}
-\subsection{Gesamter Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-	S_l = s_l \cdot GSD = 109,4400 \ut{m} \\
-	S_q = s_q \cdot GSD = 72,9600 \ut{m} \\
-	m_b = \frac{GSD}{\Delta pixel} = 8333,3 \\
-	h = c \cdot m_b \approx 73 \ut{m}  \\
-	B = S_l \cdot (1-p) = 14,5920 \ut{m} \\
-	A = S_q \cdot (1-q) = 43,7760 \ut{m} \\
-	n_b = (\frac{L}{B})^* + 1 = 49 \\
-	n_s = (\frac{Q}{A})^* + 1 = 4 \\	
-	t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 560,3328 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-	\sigma_X = m_b \cdot \sigma_x = 0,0100 \ut{m} \\
-	\sigma_Y = m_b \cdot \sigma_y = 0,0100 \ut{m} \\
-	\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0500 \ut{m}
-\end{gather*}
-\subsection{Zentraler Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-	h_{zentral} = h \cdot 0,85 \approx 62 \ut{m} \\
-	{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 7083,3 \\
-	GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0170 \ut{m} \\
-	{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 93,0240 \ut{m} \\
-	{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 62,0160 \ut{m} \\
-	B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 12,4032 \ut{m} \\
-	A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 37,2096 \ut{m} \\
-	{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 18 \\
-	{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 4 \\	
-	t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 168,6835 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-	\sigma_X = m_b \cdot \sigma_x = 0,0085 \ut{m} \\
-	\sigma_Y = m_b \cdot \sigma_y = 0,0085\ut{m} \\
-	\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0425 \ut{m}
-\end{gather*}
 \newpage
-
-\section{Sony Alpha 6000}
-\subsection{Gesamter Bereich}
-\subsubsection{Planung}
+\subsection{b}
+Der funktionale Modell:
 \begin{gather*}
-	S_l = s_l \cdot GSD = 120,0000 \ut{m} \\
-	S_q = s_q \cdot GSD = 80,0000 \ut{m} \\
-	m_b = \frac{GSD}{\Delta pixel} = 5128,2 \\
-	h = c \cdot m_b \approx 82 \ut{m}  \\
-	B = S_l \cdot (1-p) = 16,0000 \ut{m} \\
-	A = S_q \cdot (1-q) = 48,0000 \ut{m} \\
-	n_b = (\frac{L}{B})^* + 1 = 45 \\
-	n_s = (\frac{Q}{A})^* + 1 = 4 \\	
-	t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 563,2000 \ut{s} \\
+	\zeta_i = a_0 + a_1 \cdot y_i + a_2 \cdot x_i + a_3 \cdot y_i \cdot x_i + a_4 \cdot y_i^2 + a_5 \cdot x_i^2 \\
+	\underbrace{\begin{bmatrix}
+		\zeta_1 \\
+		\zeta_2 \\
+		\vdots \\
+		\zeta_{19} \\
+		\zeta_{20}
+	\end{bmatrix}}_{\text{$l$}} = \underbrace{\begin{bmatrix}
+		1 & y_1 & x_1 & y_1 \cdot x_1 & y_1^2 & x_1^2 \\
+		1 & y_2 & x_2 & y_2 \cdot x_2 & y_2^2 & x_2^2 \\
+		\vdots \\
+		1 & y_{19} & x_{19} & y_{19} \cdot x_{19} & y_{19}^2 & x_{19}^2 \\
+		1 & y_{20} & x_{20} & y_{20} \cdot x_{20} & y_{20}^2 & x_{20}^2 \\
+	\end{bmatrix}}_{\text{$A$}} \cdot \underbrace{\begin{bmatrix}
+		a_0 \\
+		a_1 \\
+		a_2 \\
+		a_3 \\
+		a_4 \\
+		a_5
+	\end{bmatrix}}_{\text{$x$}} \\
+	x = (A'A)^{-1}A'l = \begin{bmatrix}
+		121284,497 \\
+		-0,0814 \\
+		0,0082 \\
+		1,7880 \cdot 10^{-8} \\
+		-2,0830 \cdot 10^{-9} \\
+		-6,6258 \cdot 10^{-9} \\
+	\end{bmatrix}
 \end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-	\sigma_X = m_b \cdot \sigma_x = 0,0100 \ut{m} \\
-	\sigma_Y = m_b \cdot \sigma_y = 0,0100 \ut{m} \\
-	\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0513 \ut{m}
-\end{gather*}
-\subsection{Zentraler Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-	h_{zentral} = h \cdot 0,85 \approx 70 \ut{m} \\
-	{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 4359,0 \\
-	GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0170 \ut{m} \\
-	{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 102,0000 \ut{m} \\
-	{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 68,0000 \ut{m} \\
-	B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 13,6000 \ut{m} \\
-	A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 40,8 \ut{m} \\
-	{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 16 \\
-	{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 4 \\	
-	t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 163,2000 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-\sigma_X = m_b \cdot \sigma_x = 0,0085 \ut{m} \\
-\sigma_Y = m_b \cdot \sigma_y = 0,0085\ut{m} \\
-\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0436 \ut{m}
-\end{gather*}
-\newpage
-
-\section{Phase One iXM 100 Kamera}
-\subsection{Gesamter Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-S_l = s_l \cdot GSD = 233,2800 \ut{m} \\
-S_q = s_q \cdot GSD = 175,0000 \ut{m} \\
-m_b = \frac{GSD}{\Delta pixel} = 5319,1 \\
-h = c \cdot m_b \approx 186 \ut{m}  \\
-B = S_l \cdot (1-p) = 35,0000 \ut{m} \\
-A = S_q \cdot (1-q) = 93,3120 \ut{m} \\
-n_b = (\frac{L}{B})^* + 1 = 22 \\
-n_s = (\frac{Q}{A})^* + 1 = 2 \\	
-t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 294,0000 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-\sigma_X = m_b \cdot \sigma_x = 0,0100 \ut{m} \\
-\sigma_Y = m_b \cdot \sigma_y = 0,0100 \ut{m} \\
-\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0532 \ut{m}
-\end{gather*}
-\subsection{Zentraler Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-h_{zentral} = h \cdot 0,85 \approx 158 \ut{m} \\
-{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 4521,3 \\
-GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0170 \ut{m} \\
-{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 198,2880 \ut{m} \\
-{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 148,7500 \ut{m} \\
-B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 29,7500 \ut{m} \\
-A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 79,3152 \ut{m} \\
-{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 8 \\
-{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 2 \\	
-t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 83,3000 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-\sigma_X = m_b \cdot \sigma_x = 0,0085 \ut{m} \\
-\sigma_Y = m_b \cdot \sigma_y = 0,0085 \ut{m} \\
-\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0452 \ut{m}
-\end{gather*}
-\newpage
-
-\section{Sequioa multi-spektral Sensor}
-Mit diesem Sensor ist $GSD = 10 \ut{cm}$
-\subsection{Gesamter Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-S_l = s_l \cdot GSD = 460,80 \ut{m} \\
-S_q = s_q \cdot GSD = 345,60 \ut{m} \\
-m_b = \frac{GSD}{\Delta pixel} = 9234,5 \\
-h = c \cdot m_b \approx 37 \ut{m}  \\
-B = S_l \cdot (1-p) = 69,1200 \ut{m} \\
-A = S_q \cdot (1-q) = 184,3200 \ut{m} \\
-n_b = (\frac{L}{B})^* + 1 = 12 \\
-n_s = (\frac{Q}{A})^* + 1 = 1 \\	
-t = (n_b - 1) \cdot n_s \cdot \frac{B}{v} = 152,0640 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-\sigma_X = m_b \cdot \sigma_x = 0,0500 \ut{m} \\
-\sigma_Y = m_b \cdot \sigma_y = 0,0500 \ut{m} \\
-\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0266 \ut{m}
-\end{gather*}
-\subsection{Zentraler Bereich}
-\subsubsection{Planung}
-\begin{gather*}
-h_{zentral} = h \cdot 0,85 \approx 31 \ut{m} \\
-{m_b}_{zentral}  = \frac{h_{zentral}}{c} = 7849,3 \\
-GSD_{zentral} = s_p \cdot {m_b}_{zentral} = 0,0850 \ut{m} \\
-{S_l}_{zentral} = s_l \cdot GSD_{zentral} = 391.6800 \ut{m} \\
-{S_q}_{zentral} = s_q \cdot GSD_{zentral} = 293.7600 \ut{m} \\
-B_{zentral} = {S_l}_{zentral} \cdot (1-p) = 58.7520 \ut{m} \\
-A_{zentral} = {S_q}_{zentral} \cdot (1-q) = 156.6720 \ut{m} \\
-{n_b}_{zentral} = (\frac{L}{B_{zentral}})^* + 1 = 5 \\
-{n_s}_{zentral} = (\frac{Q}{A_{zentral}})^* + 1 = 1 \\	
-t_{zentral} = ({n_b}_{zentral} - 1) \cdot {n_s}_{zentral} \cdot \Delta t_{zentral} = 83,3000 \ut{s} \\
-\end{gather*}
-\subsubsection{Genauigkeit}
-\begin{gather*}
-\sigma_X = m_b \cdot \sigma_x = 0,0425 \ut{m} \\
-\sigma_Y = m_b \cdot \sigma_y = 0,0425 \ut{m} \\
-\sigma_Z = \frac{m_b \cdot h \cdot \sigma_x}{B} = 0,0226 \ut{m}
-\end{gather*}
-\newpage
+\subsection{c}
+Redudanz $r = 20 - 6 = 14$
