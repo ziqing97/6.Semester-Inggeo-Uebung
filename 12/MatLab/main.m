@@ -49,8 +49,10 @@ idx = find(T < Q(1));
 %%
 i = 1;
 id = zeros(6,1) * NaN;
+
 check = zeros(6,1) * NaN;
 check_list = 1:6;
+
 while ~isempty(idx)
     id(i) = find(T == min(T));
     check(i) = check_list(id(i));
@@ -84,6 +86,7 @@ end
 zeta_2 = A_2 * a_bar;    % Höhenanomalie 21 - 30
 NH_under =  data(21:30,4) - zeta_2; % Normalhöhen 21 - 30
 data(21:30,3) = NH_under;
+
 
 %% Aufgabe e
 F = [ones(10,1),A_2];
