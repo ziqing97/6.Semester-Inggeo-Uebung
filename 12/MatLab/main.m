@@ -29,6 +29,8 @@ zlabel("Höhenanomalie")
 A_1 = [ones(20,1), data(1:20,1), data(1:20,2), data(1:20,1).* data(1:20,2), data(1:20,1).^2, data(1:20,2).^2];  % Matrix bauen
 a_bar = (A_1' * A_1) \ A_1' * zeta_1;  % Ausgleichen
 
+a_bar = inv(A_1' * A_1) * A_1' * zeta_1; % test
+
 
 
 %% Aufgabe c
@@ -41,25 +43,35 @@ Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
 
 sigma_a = sqrt(diag(Sigma_a));
 T = abs(a_bar - 0) ./ sigma_a;
-Q = 3.1824;   % Quantil
-idx = find(T < Q);
+Q = [2.447, 2.571, 2.776, 3.182, 4.303, 12.71];   % Quantil
+idx = find(T < Q(1));
 
 %%
 i = 1;
 id = zeros(6,1) * NaN;
+check = zeros(6,1) * NaN;
+check_list = 1:6;
 while ~isempty(idx)
     id(i) = find(T == min(T));
+    check(i) = check_list(id(i));
+    check_list(id(i)) = [];
     A_1(:,id(i)) = [];
     a_bar = (A_1' * A_1) \ A_1' * zeta_1;
+    
+    a_bar = inv(A_1' * A_1) * A_1' * zeta_1; % test
+    
     zeta_1_bar = A_1 * a_bar;
     epsilon_bar = zeta_1 - zeta_1_bar;
     sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
     Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
     sigma_a = sqrt(diag(Sigma_a));
     T = abs(a_bar - 0) ./ sigma_a;
-    idx = find(T < Q);
+    idx = find(T < Q(i+1));
     i = i + 1;
 end
+
+check = sort(check);  % Welche Elemente sind gelöscht
+
 %% Aufgabe d
 A_2 = [ones(10,1), data(21:30,1), data(21:30,2), data(21:30,1).* data(21:30,2), data(21:30,1).^2, data(21:30,2).^2]; 
 for i=1:6
