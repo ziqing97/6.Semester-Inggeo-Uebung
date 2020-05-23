@@ -86,14 +86,20 @@ Der funktionale Modell:
 		a_4 \\
 		a_5
 	\end{bmatrix}}_{\text{$x$}} \\
-	x = (A'A)^{-1}A'l = \begin{bmatrix}
-		121284,497 \\
-		-0,0814 \\
-		0,0082 \\
-		1,7880 \cdot 10^{-8} \\
-		-2,0830 \cdot 10^{-9} \\
-		-6,6258 \cdot 10^{-9} \\
+	\hat{x} = (A'A)^{-1}A'l = \begin{bmatrix}
+		64990,1304 \\
+		-0,0500 \\
+		0,0086 \\
+		1,3003 \cdot 10^{-8} \\
+		-2,8173 \cdot 10^{-9} \\
+		-5,0615 \cdot 10^{-9} \\
 	\end{bmatrix}
 \end{gather*}
 \subsection{c}
-Redudanz $r = 20 - 6 = 14$
+$n$ ist die Anzahl der übrigen Koeffizienten, Redudanz $r = 20 - n$
+\begin{gather*}
+	\hat{\zeta} = A \cdot \hat{x} \\
+	\hat{\varepsilon} = \zeta - \hat{\zeta} \\
+	\sigma_{\hat{\zeta}} = \frac{\hat{\varepsilon}'\hat{\varepsilon}}{r} \\
+	\sigma_a = \sigma_{\hat{\zeta}} \cdot (A'A)^{-1}
+\end{gather*}

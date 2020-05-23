@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.2)  20 MAY 2020 08:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.2.2)  22 MAY 2020 21:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1014,7 +1014,7 @@ LaTeX Font Info:    Trying to load font information for TS1+ppl on input line 1
  (f:/texlive/texlive/2019/texmf-dist/tex/latex/psnfss/ts1ppl.fd
 File: ts1ppl.fd 2001/06/04 font definitions for TS1/ppl.
 )
-<Images/Hoeheanomalie.png, id=50, 421.575pt x 316.18124pt>
+<Images/Hoeheanomalie.png, id=52, 421.575pt x 316.18124pt>
 File: Images/Hoeheanomalie.png Graphic file (type png)
 <use Images/Hoeheanomalie.png>
 Package pdftex.def Info: Images/Hoeheanomalie.png  used on input line 58.
@@ -1034,11 +1034,11 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 46.
  ) 
 Here is how much of TeX's memory you used:
- 16716 strings out of 492162
- 299911 string characters out of 6125271
- 548696 words of memory out of 5000000
+ 16717 strings out of 492162
+ 299916 string characters out of 6125271
+ 550696 words of memory out of 5000000
  20749 multiletter control sequences out of 15000+600000
- 36149 words of font info for 83 fonts, out of 8000000 for 9000
+ 36449 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  54i,22n,84p,10123b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
 {f:/texlive/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc}<f:/texlive/t
@@ -1050,10 +1050,10 @@ ve/2019/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb><f:/texlive/texlive/2
 mf-dist/fonts/type1/urw/palatino/uplbi8a.pfb><f:/texlive/texlive/2019/texmf-dis
 t/fonts/type1/urw/palatino/uplr8a.pfb><f:/texlive/texlive/2019/texmf-dist/fonts
 /type1/urw/palatino/uplri8a.pfb>
-Output written on report.pdf (5 pages, 201125 bytes).
+Output written on report.pdf (5 pages, 202523 bytes).
 PDF statistics:
- 113 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
+ 114 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  15 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

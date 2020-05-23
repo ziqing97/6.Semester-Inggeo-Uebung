@@ -34,17 +34,23 @@ a_bar = inv(A_1' * A_1) * A_1' * zeta_1; % test
 
 
 %% Aufgabe c
-r = 20 - 6;
+r = 20 - length(a_bar);
 zeta_1_bar = A_1 * a_bar;
 epsilon_bar = zeta_1 - zeta_1_bar;
 sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
-Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
+Sigma_a = sigma_zeta_bar * inv(A_1' * A_1);
+
+% Sigma_a = sigma_zeta * inv(A_1' * A_1); % test
 
 
 sigma_a = sqrt(diag(Sigma_a));
 T = abs(a_bar - 0) ./ sigma_a;
 Q = [2.447, 2.571, 2.776, 3.182, 4.303, 12.71];   % Quantil
 idx = find(T < Q(1));
+
+
+a_list = cell(6,1);
+T_list = cell(6,1);
 
 %%
 i = 1;
@@ -54,6 +60,8 @@ check = zeros(6,1) * NaN;
 check_list = 1:6;
 
 while ~isempty(idx)
+    a_list{i} = a_bar;
+    T_list{i} = T;
     id(i) = find(T == min(T));
     check(i) = check_list(id(i));
     check_list(id(i)) = [];
@@ -62,10 +70,14 @@ while ~isempty(idx)
     
     a_bar = inv(A_1' * A_1) * A_1' * zeta_1; % test
     
+    r = 20 - length(a_bar);
     zeta_1_bar = A_1 * a_bar;
     epsilon_bar = zeta_1 - zeta_1_bar;
     sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
     Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
+    
+%     Sigma_a = sigma_zeta * inv(A_1' * A_1); % test
+    
     sigma_a = sqrt(diag(Sigma_a));
     T = abs(a_bar - 0) ./ sigma_a;
     idx = find(T < Q(i+1));
@@ -89,11 +101,13 @@ data(21:30,3) = NH_under;
 
 
 %% Aufgabe e
-F = [ones(10,1),A_2];
+F = [eye(10),A_2];
 [~,l] = size(F);
 Sigma_big = zeros(l,l);
-Sigma_big(1,1) = 0.005;
-Sigma_big(2:l,2:l) = Sigma_a;
+Sigma_big(1:10,1:10) = 0.005^2 * eye(10);
+Sigma_big(11:l,11:l) = Sigma_a;
+
 Sigma_nh = F * Sigma_big * F';
+
 sigma_nh = sqrt(diag(Sigma_nh));
 
