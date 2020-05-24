@@ -12,45 +12,37 @@ zeta_1 = data(1:20,4) - data(1:20,3); % Höhenanomalie 1 - 20
 sigma_HN = 0.001; % Standardabweichung Normalhöhen
 sigma_e = 0.005;  % Standardabweichung Ellipslid Höhe
 sigma_zeta = sqrt(sigma_HN^2 + sigma_e^2);  % Fehlerfortpflanzung
-
-xq = min(data(1:20,2)):50:max(data(1:20,2));
-yq = min(data(1:20,1)):50:max(data(1:20,1));
-[xq,yq] = meshgrid(xq,yq);
-vq = griddata(data(1:20,2),data(1:20,1),zeta_1,xq,yq);
-figure,hold on 
+figure
 scatter3(data(1:20,2),data(1:20,1),zeta_1)
-mesh(xq,yq,vq)
-xlabel("x")
-ylabel("y")
-zlabel("Höhenanomalie")
+
 
 
 %% Aufgabe b
 A_1 = [ones(20,1), data(1:20,1), data(1:20,2), data(1:20,1).* data(1:20,2), data(1:20,1).^2, data(1:20,2).^2];  % Matrix bauen
 a_bar = (A_1' * A_1) \ A_1' * zeta_1;  % Ausgleichen
 
-a_bar = inv(A_1' * A_1) * A_1' * zeta_1; % test
+
+
+
 
 
 
 %% Aufgabe c
 r = 20 - length(a_bar);
-zeta_1_bar = A_1 * a_bar;
-epsilon_bar = zeta_1 - zeta_1_bar;
-sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
-Sigma_a = sigma_zeta_bar * inv(A_1' * A_1);
 
-% Sigma_a = sigma_zeta * inv(A_1' * A_1); % test
+Sigma_a = sigma_zeta^2 * inv(A_1' * A_1); % test
 
 
 sigma_a = sqrt(diag(Sigma_a));
 T = abs(a_bar - 0) ./ sigma_a;
-Q = [2.447, 2.571, 2.776, 3.182, 4.303, 12.71];   % Quantil
-idx = find(T < Q(1));
+Q = abs(tinv(1 - 0.975, r));   % Quantil
+idx = find(T < Q);
 
 
 a_list = cell(6,1);
 T_list = cell(6,1);
+
+
 
 %%
 i = 1;
@@ -67,24 +59,27 @@ while ~isempty(idx)
     check_list(id(i)) = [];
     A_1(:,id(i)) = [];
     a_bar = (A_1' * A_1) \ A_1' * zeta_1;
-    
-    a_bar = inv(A_1' * A_1) * A_1' * zeta_1; % test
-    
-    r = 20 - length(a_bar);
-    zeta_1_bar = A_1 * a_bar;
-    epsilon_bar = zeta_1 - zeta_1_bar;
-    sigma_zeta_bar = sqrt(epsilon_bar' * epsilon_bar) / r;
-    Sigma_a = sigma_zeta_bar^2 * inv(A_1' * A_1);
-    
-%     Sigma_a = sigma_zeta * inv(A_1' * A_1); % test
-    
+
+        
+    r = 20 - length(a_bar);  
+    Sigma_a = sigma_zeta^2 * inv(A_1' * A_1); 
+   
     sigma_a = sqrt(diag(Sigma_a));
     T = abs(a_bar - 0) ./ sigma_a;
-    idx = find(T < Q(i+1));
+    Q = abs(tinv(1 - 0.975, r));
+    idx = find(T < Q);
     i = i + 1;
 end
+xq = min(data(1:20,2)):50:max(data(1:20,2));
+yq = min(data(1:20,1)):50:max(data(1:20,1));
+[xq,yq] = meshgrid(xq,yq);
+vq = griddata(data(1:20,2),data(1:20,1),zeta_1,xq,yq);
+figure,hold on 
+mesh(xq,yq,vq)
+xlabel("x")
+ylabel("y")
+zlabel("Höhenanomalie")
 
-check = sort(check);  % Welche Elemente sind gelöscht
 
 %% Aufgabe d
 A_2 = [ones(10,1), data(21:30,1), data(21:30,2), data(21:30,1).* data(21:30,2), data(21:30,1).^2, data(21:30,2).^2]; 

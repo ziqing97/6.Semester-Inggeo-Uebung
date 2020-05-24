@@ -55,7 +55,7 @@ Graphische Darstellung:
 \begin{figure*}[ht]\centering
 	\begin{subfigure}{.8\textwidth}
 		\centering
-		\includegraphics[width=.8\linewidth]{Images/Hoeheanomalie}  
+		\includegraphics[width=.8\linewidth]{Images/Hoeheanomaliepunkt}  
 		\caption{Höhenanomalie}
 		\label{fig:sub-first}
 	\end{subfigure}
@@ -95,11 +95,124 @@ Der funktionale Modell:
 		-5,0615 \cdot 10^{-9} \\
 	\end{bmatrix}
 \end{gather*}
+\newpage
 \subsection{c}
-$n$ ist die Anzahl der übrigen Koeffizienten, Redudanz $r = 20 - n$
+$n$ ist die Anzahl der übrigen Koeffizienten, $r = 20 - n$ \\
+Kovarianzmatrix von alle Koeffizienten
 \begin{gather*}
-	\hat{\zeta} = A \cdot \hat{x} \\
-	\hat{\varepsilon} = \zeta - \hat{\zeta} \\
-	\sigma_{\hat{\zeta}} = \frac{\hat{\varepsilon}'\hat{\varepsilon}}{r} \\
-	\sigma_a = \sigma_{\hat{\zeta}} \cdot (A'A)^{-1}
+	\Sigma_{a} = \sigma_{\zeta}^2 \cdot (A'A)^{-1} \\
 \end{gather*}
+Standardabweichung von Koeffizienten:
+\begin{equation*}
+	\sigma_a = \sqrt{ diag(\Sigma_{a})}
+\end{equation*}
+Testgröße für eine Koeffizient
+\begin{equation*}
+	\frac{|a_i - 0|}{\sigma_{a_i}}
+\end{equation*}
+Quantil ist $t^t_{97,5,r}$ in t-Verteilung. \\
+Testgröße in jeder Schleife: 
+\begin{table}[ht] \centering
+	\begin{tabular}{|l|l|l|l|l|l|l|l|}
+		\hline
+		& Quantil & $T_{a_0}$ & $T_{a_1}$  & $T_{a_2}$ & $T_{a_3}$ & $T_{a_4}$  & $T_{a_5}$  \\ \hline
+		1 & 2,1448  & 1,2128e5  & -0,0814    & 0,0082    & 1,7880e-8 & -2,0830e-9 & -6,6258e-9 \\ \hline
+		2 & 2,1314  & 4,9219e4  & -0,0279    &       & 1,0868e-8 & -4,3181e-9 & -3,5627e-9 \\ \hline
+		3 & 2,1199  &       & -1,1886e-5 &      & 7,3875e-9 & -5,6267e-9 & -2,4217e-9 \\ \hline
+	\end{tabular}
+\end{table}
+\newline
+Koeffizienten in jeder Schleife:
+\begin{table}[ht] \centering
+	\begin{tabular}{|l|l|l|l|l|l|l|}
+		\hline
+		& $a_0$    & $a_1$      & $a_2$  & $a_3$     & $a_4$      & $a_5$      \\ \hline
+		1 & $1,2128 \cdot 10^{-5}$ & -0,0814    & 0,0082 & $1,7880 \cdot 10^{-8}$ & $-2,0830 \cdot 10^{-9}$ & $-6,6258 \cdot 10^{-9}$ \\ \hline
+		2 & 4,9219e4 & -0,0279    &     & $1,0868\cdot 10^{-8}$ & $-4,3181 \cdot 10^{-9}$ & $-3,5627 \cdot 10^{-9}$ \\ \hline
+		3 &       & $-1,1886 \cdot 10^{-5}$ &     & $7,3875 \cdot 10^{-9}$ & $-5,6267 \cdot 10^{-9}$ & $-2,4217 \cdot 10^{-9}$ \\ \hline
+	\end{tabular}
+\end{table}
+\begin{figure*}[ht]\centering
+	\begin{subfigure}{.8\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{Images/Hoeheanomalie}  
+		\caption{Höhenanomalie}
+		\label{fig:sub-first}
+	\end{subfigure}
+\end{figure*}
+\newpage
+\subsection{d}
+Wir haben jetzt das neue Flächenpolynom:
+\begin{equation*}
+	\zeta_i = a_1 \cdot y_i + a_3 \cdot y_i \cdot x_i + a_4 \cdot y_i^2 + a_5 \cdot x_i^2
+\end{equation*}
+Die Koordinaten der Neupunkten sind bekannt, damit darf man die Höhenanomalie berechnen.
+\begin{table}[ht] \centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Pkt.Nr & Höhenanomalie [\ut{m}] \\ \hline
+		21     & 48,4386       \\ \hline
+		22     & 48,4397       \\ \hline
+		23     & 48,4301       \\ \hline
+		24     & 48,4303       \\ \hline
+		25     & 48,4357       \\ \hline
+		26     & 48,4465       \\ \hline
+		27     & 48,4463       \\ \hline
+		28     & 48,4413       \\ \hline
+		29     & 48,4317       \\ \hline
+		30    & 48,4199       \\ \hline
+	\end{tabular}
+\end{table}\\
+Die ellipsoidesche Höhen sind bekannt, dann: 
+\begin{table}[ht] \centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Pkt.Nr & Normalhöhe [\ut{m}] \\ \hline
+		21     & 799,9974       \\ \hline
+		22     & 791,3263       \\ \hline
+		23     & 614,9569       \\ \hline
+		24     & 570,9737      \\ \hline
+		25     & 504,6443    \\ \hline
+		26     & 495,1945       \\ \hline
+		27     & 466,7147       \\ \hline
+		28     & 441,3237       \\ \hline
+		29     & 412,4763       \\ \hline
+		30     & 376,8061      \\ \hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{e}
+Standardabweichung der Neupunktennormalhöhen sind durch Fehlerfortpflanzung bestimmbar. 
+\begin{equation*}
+	\Sigma_{neu} = F \cdot \Sigma_{ll} \cdot F'
+\end{equation*} 
+wobei:
+\begin{gather*}
+	F = \underbrace{\begin{bmatrix}
+	1 & 0 & 0 & \cdots & 0 & 0 & y_{21} & y_{21} \cdot x_{21} & y_{21}^2 & x_{21}^2 \\
+	0 & 1 & 0 & \cdots & 0 & 0 & y_{22} & y_{22} \cdot x_{22} & y_{22}^2 & x_{22}^2 \\
+	0 & 0 & 1 & \cdots & 0 & 0 & y_{23} & y_{23} \cdot x_{23} & y_{23}^2 & x_{23}^2 \\
+	\vdots & \vdots & \vdots & \cdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+	0 & 0 & 0 & \cdots & 1 & 0 & y_{29} & y_{29} \cdot x_{29} & y_{29}^2 & x_{29}^2 \\
+	0 & 0 & 0 & \cdots & 0 & 1 & y_{30} & y_{30} \cdot x_{30} & y_{30}^2 & x_{30}^2 \\
+	\end{bmatrix}}_{\text{$10 \times 14$}}
+\end{gather*}
+Die Standardabweichungen sind: 
+\begin{table}[ht] \centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Pkt.Nr & Standardabweichung [\ut{mm}] \\ \hline
+		21     & 5,4100       \\ \hline
+		22     & 5,2923       \\ \hline
+		23     & 5,2878       \\ \hline
+		24     & 5,2675      \\ \hline
+		25     & 5,2893    \\ \hline
+		26     & 5,2625       \\ \hline
+		27     & 5,4290       \\ \hline
+		28     & 5,4597       \\ \hline
+		29     & 5,4504       \\ \hline
+		30     & 5,4347      \\ \hline
+	\end{tabular}
+\end{table}
+\subsection{f}
+Die Standardabweichung für $1 \ut{km}$ Doppelnivellement ist $0,4 \ut{mm}$.

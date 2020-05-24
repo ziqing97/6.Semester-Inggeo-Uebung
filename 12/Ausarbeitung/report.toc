@@ -4,4 +4,7 @@
 \contentsline {section}{\numberline {1.2}Aufgabe}{3}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}a}{3}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {1.2.2}b}{4}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}c}{4}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.3}c}{5}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}d}{6}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}e}{7}{subsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.2.6}f}{7}{subsection.1.2.6}%
