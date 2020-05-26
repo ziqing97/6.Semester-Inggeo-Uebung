@@ -22,11 +22,6 @@ A_1 = [ones(20,1), data(1:20,1), data(1:20,2), data(1:20,1).* data(1:20,2), data
 a_bar = (A_1' * A_1) \ A_1' * zeta_1;  % Ausgleichen
 
 
-
-
-
-
-
 %% Aufgabe c
 r = 20 - length(a_bar);
 
