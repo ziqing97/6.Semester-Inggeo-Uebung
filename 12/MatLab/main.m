@@ -15,22 +15,24 @@ sigma_zeta = sqrt(sigma_HN^2 + sigma_e^2);  % Fehlerfortpflanzung
 figure
 scatter3(data(1:20,2),data(1:20,1),zeta_1)
 
-
-
+s_x = mean(data(1:20,2));
+s_y = mean(data(1:20,1));
+hold on 
+scatter3(s_x,s_y,mean(zeta_1))
 %% Aufgabe b
-A_1 = [ones(20,1), data(1:20,1), data(1:20,2), data(1:20,1).* data(1:20,2), data(1:20,1).^2, data(1:20,2).^2];  % Matrix bauen
+A_1 = [ones(20,1), data(1:20,1) - s_y, data(1:20,2) - s_x, (data(1:20,1) - s_y).* (data(1:20,2) - s_x), (data(1:20,1) - s_y).^2, (data(1:20,2) - s_x) .^2];  % Matrix bauen
 a_bar = (A_1' * A_1) \ A_1' * zeta_1;  % Ausgleichen
 
 
 %% Aufgabe c
 r = 20 - length(a_bar);
 
-Sigma_a = sigma_zeta^2 * inv(A_1' * A_1); % test
+Sigma_a = sigma_zeta^2 \ (A_1' * A_1); % test
 
 
 sigma_a = sqrt(diag(Sigma_a));
 T = abs(a_bar - 0) ./ sigma_a;
-Q = abs(tinv(1 - 0.975, r));   % Quantil
+Q = tinv(1 - 0.025 / length(a_bar), r);   % Quantil
 idx = find(T < Q);
 
 
@@ -61,10 +63,12 @@ while ~isempty(idx)
    
     sigma_a = sqrt(diag(Sigma_a));
     T = abs(a_bar - 0) ./ sigma_a;
-    Q = abs(tinv(1 - 0.975, r));
+    Q = tinv(1 - 0.025 / length(a_bar), r);
     idx = find(T < Q);
     i = i + 1;
 end
+T_list{i} = T;
+a_list{i} = a_bar;
 xq = min(data(1:20,2)):50:max(data(1:20,2));
 yq = min(data(1:20,1)):50:max(data(1:20,1));
 [xq,yq] = meshgrid(xq,yq);
@@ -77,7 +81,7 @@ zlabel("Höhenanomalie")
 
 
 %% Aufgabe d
-A_2 = [ones(10,1), data(21:30,1), data(21:30,2), data(21:30,1).* data(21:30,2), data(21:30,1).^2, data(21:30,2).^2]; 
+A_2 = [ones(10,1), data(21:30,1) - s_y, data(21:30,2) - s_x, (data(21:30,1) - s_y).* (data(21:30,2) - s_x), (data(21:30,1) - s_y).^2, (data(21:30,2) - s_x).^2]; 
 for i=1:6
     if isnan(id(i)) 
         break

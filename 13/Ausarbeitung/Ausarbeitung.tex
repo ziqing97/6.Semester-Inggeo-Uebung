@@ -27,7 +27,7 @@ Höhenanomalie von Punkten 1 bis 20:
 		5     & 48,4290       \\ \hline
 		6     & 48,3750       \\ \hline
 		7     & 48,4098       \\ \hline
-		8     & 48,4290       \\ \hline
+		8     & 48,4360       \\ \hline
 		9     & 48,4360       \\ \hline
 		10    & 48,4487       \\ \hline
 	\end{tabular}
@@ -63,15 +63,9 @@ Graphische Darstellung:
 
 \newpage
 \subsection{b}
-Die Schwerpunkt lautet: \\
-\begin{equation*}
-	x_s = \frac{1}{20} \sum_{i=1}^{20} x_i = 5375436,408 \quad
-	y_s = \frac{1}{20} \sum_{i=1}^{20} y_i = 3523910,288
-\end{equation*}
 Der funktionale Modell:
 \begin{gather*}
-	x_i' = x_i - x_s \quad y_i' = y_i - y_s \\
-	\zeta_i = a_0 + a_1 \cdot y_i' + a_2 \cdot x_i' + a_3 \cdot y_i' \cdot x_i' + a_4 \cdot y_i'^2 + a_5 \cdot x_i'^2 \\
+	\zeta_i = a_0 + a_1 \cdot y_i + a_2 \cdot x_i + a_3 \cdot y_i \cdot x_i + a_4 \cdot y_i^2 + a_5 \cdot x_i^2 \\
 	\underbrace{\begin{bmatrix}
 		\zeta_1 \\
 		\zeta_2 \\
@@ -79,11 +73,11 @@ Der funktionale Modell:
 		\zeta_{19} \\
 		\zeta_{20}
 	\end{bmatrix}}_{\text{$l$}} = \underbrace{\begin{bmatrix}
-		1 & y_1' & x_1' & y_1' \cdot x_1' & y_1'^2 & x_1'^2 \\
-		1 & y_2' & x_2' & y_2' \cdot x_2' & y_2'^2 & x_2'^2 \\
+		1 & y_1 & x_1 & y_1 \cdot x_1 & y_1^2 & x_1^2 \\
+		1 & y_2 & x_2 & y_2 \cdot x_2 & y_2^2 & x_2^2 \\
 		\vdots \\
-		1 & y_{19}' & x_{19}' & y_{19}' \cdot x_{19}' & y_{19}'^2 & x_{19}'^2 \\
-		1 & y_{20}' & x_{20}' & y_{20}' \cdot x_{20}' & y_{20}'^2 & x_{20}'^2 \\
+		1 & y_{19} & x_{19} & y_{19} \cdot x_{19} & y_{19}^2 & x_{19}^2 \\
+		1 & y_{20} & x_{20} & y_{20} \cdot x_{20} & y_{20}^2 & x_{20}^2 \\
 	\end{bmatrix}}_{\text{$A$}} \cdot \underbrace{\begin{bmatrix}
 		a_0 \\
 		a_1 \\
@@ -93,12 +87,12 @@ Der funktionale Modell:
 		a_5
 	\end{bmatrix}}_{\text{$x$}} \\
 	\hat{x} = (A'A)^{-1}A'l = \begin{bmatrix}
-		48,4361 \\
-		4,3398 \cdot 10^{-5} \\
-		-2,5563 \cdot 10^{-6} \\
-		8,1539 \cdot 10^{-9} \\
-		-4,9588 \cdot 10^{-9} \\
-		-5,7264 \cdot 10^{-9} \\
+		64990,1304 \\
+		-0,0500 \\
+		0,0086 \\
+		1,3003 \cdot 10^{-8} \\
+		-2,8173 \cdot 10^{-9} \\
+		-5,0615 \cdot 10^{-9} \\
 	\end{bmatrix}
 \end{gather*}
 \newpage
@@ -122,10 +116,9 @@ Testgröße in jeder Schleife:
 	\begin{tabular}{|l|l|l|l|l|l|l|l|}
 		\hline
 		& Quantil & $T_{a_0}$ & $T_{a_1}$  & $T_{a_2}$ & $T_{a_3}$ & $T_{a_4}$  & $T_{a_5}$  \\ \hline
-		1 & 3.0688  & 0.0552  & $6,657 \cdot 10^{-11}$    & $3,645 \cdot 10^{-12}$   & $2,472 \cdot 10^{-17}$ & $6,628 \cdot 10^{-18}$ & $7,002 \cdot 10^{-18}$ \\ \hline
-		2 & 2.9467  & $3,010 \cdot 10^{4}$  & 27,6830    &   1,8578    & 3,5185 &  & 2,0606 \\ \hline
-		3 & 2,8131  & $3,020 \cdot 10^{4}$   & 28,2715 &      & 3,7971 &   & 2,2270 \\ \hline
-		4 & 2,6550  & $4,105 \cdot 10^{4}$   & 28,5474 &      & 3,7364 &   &        \\ \hline
+		1 & 2,1448  & 2,3366  & 3,5273    & 0,7449   & 5,6811 & 1,1111 & 4,7651 \\ \hline
+		2 & 2,1314  & 1,4883  & 1,4890    &       & 3,7828 & 2,4401 & 3,7832 \\ \hline
+		3 & 2,1199  &       & 4,0808 &      & 4,1384 & 4,1328 & 4,1390 \\ \hline
 	\end{tabular}
 \end{table}
 \newline
@@ -134,10 +127,9 @@ Koeffizienten in jeder Schleife:
 	\begin{tabular}{|l|l|l|l|l|l|l|}
 		\hline
 		& $a_0$    & $a_1$      & $a_2$  & $a_3$     & $a_4$      & $a_5$      \\ \hline
-		1 & 48,4361 & $4,3398 \cdot 10^{-5}$    & $-2,5563\cdot 10^{-6}$ & $8,1539 \cdot 10^{-9}$ & $-4,9588 \cdot 10^{-9}$ & $-5,7264 \cdot 10^{-9}$ \\ \hline
-		2 & 48,4323 & $4,3178 \cdot 10^{-5}$    & $-2,7177\cdot 10^{-6}$ & $1,1162 \cdot 10^{-8}$ & & $-3,4860 \cdot 10^{-9}$ \\ \hline
-		3 & 48,4325 & $4,3608 \cdot 10^{-5}$    &  & $1,1940 \cdot 10^{-8}$ & & $-3,7536 \cdot 10^{-9}$ \\ \hline
-		4 & 48,4301 & $4,3887 \cdot 10^{-5}$    &  & $1,1745 \cdot 10^{-8}$ & &  \\ \hline
+		1 & $1,2128 \cdot 10^{-5}$ & -0,0814    & 0,0082 & $1,7880 \cdot 10^{-8}$ & $-2,0830 \cdot 10^{-9}$ & $-6,6258 \cdot 10^{-9}$ \\ \hline
+		2 & 4,9219e4 & -0,0279    &     & $1,0868\cdot 10^{-8}$ & $-4,3181 \cdot 10^{-9}$ & $-3,5627 \cdot 10^{-9}$ \\ \hline
+		3 &       & $-1,1886 \cdot 10^{-5}$ &     & $7,3875 \cdot 10^{-9}$ & $-5,6267 \cdot 10^{-9}$ & $-2,4217 \cdot 10^{-9}$ \\ \hline
 	\end{tabular}
 \end{table}
 \begin{figure*}[ht]\centering
@@ -152,23 +144,23 @@ Koeffizienten in jeder Schleife:
 \subsection{d}
 Wir haben jetzt das neue Flächenpolynom:
 \begin{equation*}
-	\zeta_i = a_0 + a_1 \cdot y_i + a_3 \cdot y_i \cdot x_i 
+	\zeta_i = a_1 \cdot y_i + a_3 \cdot y_i \cdot x_i + a_4 \cdot y_i^2 + a_5 \cdot x_i^2
 \end{equation*}
 Die Koordinaten der Neupunkten sind bekannt, damit darf man die Höhenanomalie berechnen.
 \begin{table}[ht] \centering
 	\begin{tabular}{|l|l|}
 		\hline
 		Pkt.Nr & Höhenanomalie [\ut{m}] \\ \hline
-		21     & 48,4340       \\ \hline
-		22     & 48,4345       \\ \hline
-		23     & 48,4253       \\ \hline
-		24     & 48,4258       \\ \hline
-		25     & 48,4316       \\ \hline
-		26     & 48,4429       \\ \hline
-		27     & 48,4465       \\ \hline
-		28     & 48,4425       \\ \hline
-		29     & 48,4337       \\ \hline
-		30    & 48,4226       \\ \hline
+		21     & 48,4386       \\ \hline
+		22     & 48,4397       \\ \hline
+		23     & 48,4301       \\ \hline
+		24     & 48,4303       \\ \hline
+		25     & 48,4357       \\ \hline
+		26     & 48,4465       \\ \hline
+		27     & 48,4463       \\ \hline
+		28     & 48,4413       \\ \hline
+		29     & 48,4317       \\ \hline
+		30    & 48,4199       \\ \hline
 	\end{tabular}
 \end{table}\\
 Die ellipsoidesche Höhen sind bekannt, dann: 
@@ -176,16 +168,16 @@ Die ellipsoidesche Höhen sind bekannt, dann:
 	\begin{tabular}{|l|l|}
 		\hline
 		Pkt.Nr & Normalhöhe [\ut{m}] \\ \hline
-		21     & 800,0020       \\ \hline
-		22     & 791,3315       \\ \hline
-		23     & 614,9617       \\ \hline
-		24     & 570,9782      \\ \hline
-		25     & 504,6484    \\ \hline
-		26     & 495,1981       \\ \hline
-		27     & 466,7145       \\ \hline
-		28     & 441,3225       \\ \hline
-		29     & 412,4743       \\ \hline
-		30     & 376,8034      \\ \hline
+		21     & 799,9974       \\ \hline
+		22     & 791,3263       \\ \hline
+		23     & 614,9569       \\ \hline
+		24     & 570,9737      \\ \hline
+		25     & 504,6443    \\ \hline
+		26     & 495,1945       \\ \hline
+		27     & 466,7147       \\ \hline
+		28     & 441,3237       \\ \hline
+		29     & 412,4763       \\ \hline
+		30     & 376,8061      \\ \hline
 	\end{tabular}
 \end{table}
 \newpage
@@ -210,16 +202,16 @@ Die Standardabweichungen sind:
 	\begin{tabular}{|l|l|}
 		\hline
 		Pkt.Nr & Standardabweichung [\ut{mm}] \\ \hline
-		21     & 5,1368       \\ \hline
-		22     & 5,1329      \\ \hline
-		23     & 5,1541       \\ \hline
-		24     & 5,1437      \\ \hline
-		25     & 5,1377    \\ \hline
-		26     & 5,1553       \\ \hline
-		27     & 5,2348       \\ \hline
-		28     & 5,2199       \\ \hline
-		29     & 5,1554       \\ \hline
-		30     & 5,1358      \\ \hline
+		21     & 5,4100       \\ \hline
+		22     & 5,2923       \\ \hline
+		23     & 5,2878       \\ \hline
+		24     & 5,2675      \\ \hline
+		25     & 5,2893    \\ \hline
+		26     & 5,2625       \\ \hline
+		27     & 5,4290       \\ \hline
+		28     & 5,4597       \\ \hline
+		29     & 5,4504       \\ \hline
+		30     & 5,4347      \\ \hline
 	\end{tabular}
 \end{table}
 \subsection{f}
