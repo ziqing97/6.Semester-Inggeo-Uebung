@@ -1,0 +1,12 @@
+\babel@toc {english}{}
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1.1}Einleitung}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problemstellung}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Fehlerquellen}{2}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Grund für die gleichzeitige Durchführung}{2}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Formel}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Ergebnis}{3}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Fehlerfortpflanzung}{3}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Refraktionskoeffizienten}{3}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Vergleich}{4}{section.1.7}%
+\contentsline {section}{\numberline {1.8}MatLab Code}{4}{section.1.8}%

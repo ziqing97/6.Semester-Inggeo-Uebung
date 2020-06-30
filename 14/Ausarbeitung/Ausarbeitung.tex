@@ -1,0 +1,146 @@
+\newpage
+\chapter{}
+\section{Einleitung}
+In dieser Übung wird der Höhenunterschied zwischen 2 Punkte am Testfeld durch trigonometrische Höhenmessung bestimmt. 2 unterschiedene Tachymeter TS30 und TS16 werden verwendet.
+\section{Problemstellung}
+\subsection{Fehlerquellen}
+\begin{itemize}
+	\item Der Fehler bei der Tachymeterhöhe und Reflektorhöhe.
+	\item Die Messungen finden nicht gleichzeitig statt.
+\end{itemize}
+\subsection{Grund für die gleichzeitige Durchführung}
+Die Messungen von 2 Tachmetern sollen gleichzeitig stattfinden. Das Ziel ist, der Einfluss von Refraktion und Erdkrümmung wird beseitigt.
+
+\section{Formel}
+\begin{gather*}
+	\Delta H_{12} = H_2 - H_1 = s^R_1 \cos z_1 + (1 - k) \frac{{s^H}^2}{2R} + i_1 - t_1\\
+	\Delta H_{21} = H_1 - H_2 = s^R_2 \cos z_2 + (1 - k) \frac{{s^H}^2}{2R} + i_2 - t_2\\
+	\Delta H = \frac{\Delta H_{12} - \Delta H_{21}}{2} = \frac{s^R_1 \cos z_1 - s^R_2 \cos z_2}{2} + (i_1 - t_1) - (i_2 - t_2)
+\end{gather*}
+Weil $i_1 = i_2$ und $t_1 = t_2$ bei dieser Übung:
+\begin{gather*}
+	\Delta H = \frac{\Delta H_{12} - \Delta H_{21}}{2} = \frac{s^R_1 \cos z_1 - s^R_2 \cos z_2}{2}
+\end{gather*}
+\section{Ergebnis}
+Wir haben insgesamt 10 Mal gemessen.
+\begin{equation*}
+	\Delta H = \begin{bmatrix}
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085\\
+	7,0085
+	\end{bmatrix} \ut{m}
+\end{equation*}
+Der Mittelwert ist $7,0648 \ut{m}$
+\section{Fehlerfortpflanzung}
+\begin{equation*}
+	F = \begin{bmatrix}
+	\frac{\partial H_1}{\partial {s^R_1}_1} & \frac{\partial H_1}{\partial {z_1}_1} & \frac{\partial H_1}{\partial {s^R_2}_1} & \frac{\partial H_1}{\partial {z_2}_1} & 0 & 0 & 0 & 0 & 0 & \cdots \\
+	0 & 0 & 0 & 0 & \frac{\partial H_2}{\partial {s^R_1}_2} & \frac{\partial H_2}{\partial {z_1}_2} & \frac{\partial H_2}{\partial {s^R_2}_2} & \frac{\partial H_2}{\partial {z_2}_2} & 0 & \cdots \\
+	\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+	0 & 0 & 0 & 0 & 0 & 0 & \frac{\partial H_{10}}{\partial {s^R_1}_{10}} & \frac{\partial H_{10}}{\partial {z_1}_{10}} & \frac{\partial H_{10}}{\partial {s^R_2}_{10}} & \frac{\partial H_{10}}{\partial {z_2}_{10}}
+	\end{bmatrix}
+\end{equation*}
+\begin{equation*}
+	\Sigma_H = F \cdot \Sigma_{zs} \cdot F'
+\end{equation*}
+\begin{equation*}
+	\sigma_H = \sqrt{diag(\Sigma_H)} = \begin{bmatrix}
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} \\
+	0,318 \ut{mm} 
+	\end{bmatrix} 
+\end{equation*}
+Die Genauigkeit für einzelne Messung ist $0,318 \ut{mm}$, Die Genauigkeit für die gesamte Messung ist $\frac{0,318}{\sqrt{10-1}} = 0.106 \ut{mm}$
+\section{Refraktionskoeffizienten}
+\begin{gather*}
+	k = \frac{200 + \gamma - z_1 - z_2}{\gamma} = 1 + \frac{200 - z_1 - z_2}{\frac{S^H}{R} \cdot \frac{200}{\pi}}
+\end{gather*}
+\begin{equation*}
+	k = \begin{bmatrix}
+	2,2544\\
+	2,3381\\
+	2,2544\\
+	2,3381\\
+	2,3381\\
+	1,5854\\
+	1,5854\\
+	1,5018\\
+	1,5854\\
+	1,5854
+	\end{bmatrix} 
+\end{equation*}
+Der Mittelwert ist $1,9366$.
+\section{Vergleich}
+Die Höhenunterschied von Übung 10 ist $481,2389 - 474,2540 = 6,9849 \ut{m}$, es gibt ca. $2 \ut{cm}$ Unterschied zur dieser Messung. Der Grund ist, die Höhenbestimmung von GNSS nicht so genau ist.   
+
+\section{MatLab Code}
+Code und Data Auch als Anhang in E-mail.
+\begin{lstlisting}
+clc
+close all
+clear all
+
+TS16GR4 = importfile16("E:\Studium\5,6-Ingenieurgeodaesie\Uebung\IngGeo-6-Semester-Uebung\14\matlab\TS16_GR4_mod.txt", [1, Inf]);
+TS30GR4 = importfile30("E:\Studium\5,6-Ingenieurgeodaesie\Uebung\IngGeo-6-Semester-Uebung\14\matlab\TS30_GR4_mod.txt", [1, Inf]);
+
+R = 6378137;
+
+z1 = zeros(10,1);
+z1(1:5) = TS16GR4(11:15,5) / 200 * pi;
+z1(6:10) = (400 - TS16GR4(16:20,5)) / 200 * pi;
+
+z2 = zeros(10,1);
+z2(1:5) = TS30GR4(11:15,5) / 200 * pi;
+z2(6:10) = (400 - TS30GR4(16:20,5)) / 200 * pi;
+
+sr1 = TS16GR4(11:20,6);
+sr2 = TS30GR4(11:20,6);
+
+sh1 = TS16GR4(11:20,7);
+sh2 = TS30GR4(11:20,7);
+sh = mean([sh1;sh2]);
+dH = (sr1 .* cos(z1) - sr2 .* cos(z2))/2;
+dH_mean = mean(dH);
+
+% Fehlerfortpflanzung
+F = zeros(10,40);
+diag_sigma_zs = zeros(1,40);
+for i = 1:10
+F(i,4 * i - 3) = cos(z1(i)) / 2;
+F(i,4 * i - 2) = sr1(i) / 2 * (-sin(z1(i)));
+F(i,4 * i - 1) = -cos(z2(i)) / 2;
+F(i,4 * i - 0) = sr2(i) / 2 * (sin(z2(i)));
+
+diag_sigma_zs(4 * i -3) = 1e-3 + 1.5e-6 * z1(i);
+diag_sigma_zs(4 * i -2) = 0.15e-3 / 200 * pi;
+diag_sigma_zs(4 * i -1) = 1e-3 + 1e-6 * z2(i);
+diag_sigma_zs(4 * i -0) = 0.3e-3 / 200 * pi;
+end
+Sigma_zs_quad = diag(diag_sigma_zs.^2);
+Sigma_h_quad = F * Sigma_zs_quad * F';
+sigma_h = sqrt(diag(Sigma_h_quad));
+
+% eine Vereinfachung
+z1q = 103.7;
+z2q = 96.3;
+k = 1 + (200 - z1q - z2q) / ((200 / pi) * (sh / R));
+
+% fuer Vergleich
+dh_ue10 = 481.2389-474.2540;
+\end{lstlisting}
+
+
